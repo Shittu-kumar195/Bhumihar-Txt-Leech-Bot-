@@ -126,7 +126,7 @@ async def remove_channel(client, message: Message):
     except ValueError:
         await message.reply_text("Invalid command format. Use: /remove_channels <channel_id>")
 
-YOUR_ADMIN_ID = 7856557198
+YOUR_ADMIN_ID = 5840594311
 
 # Start command handler
 @bot.on_message(filters.command(["start"]))
