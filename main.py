@@ -61,8 +61,7 @@ bot = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
 )
-        context.message.reply_text("🚫 You are not authorized to use this command.")
-        return
+        
 
     try:
         group_id = int(context.args[0])  # Get the group ID from the command arguments
