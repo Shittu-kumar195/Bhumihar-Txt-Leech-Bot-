@@ -26,10 +26,126 @@ from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
+# Environment variables for API credentials
+API_ID = os.environ.get("API_ID", "24473318")
+API_HASH = os.environ.get("API_HASH", "e7dd0576c5ac0ff8f90971d6bb04c8f5")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+
+# Define the owner's user ID
+OWNER_ID = 5840594311  # Replace with the actual owner's user ID
+
+# Lists to store authorized channels, users, and groups
+authorized_channels = []
+authorized_users = []
+authorized_groups = []
+
+# Function to check if a user is authorized
+def is_authorized(user_id):
+    return user_id in SUDO_USERS
+
+# Function to check if a user is authorized
+def is_authorized(user_id: int) -> bool:
+    return user_id == OWNER_ID or user_id in SUDO_USERS
+
+# Function to extract the title from the text file
+def extract_title(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        first_line = file.readline().strip()  # Read the first line and remove extra spaces
+        return first_line if first_line else "Untitled"  # Return "Untitled" if the file is empty
 
 
+# Initialize the bot
+bot = Client(
+    "bot",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN
+)
+        context.message.reply_text("🚫 You are not authorized to use this command.")
+        return
 
-    
+    try:
+        group_id = int(context.args[0])  # Get the group ID from the command arguments
+        if group_id not in authorized_groups:
+            authorized_groups.append(group_id)
+            context.message.reply_text(f"✅ Group ID {group_id} has been authorized.")
+        else:
+            context.message.reply_text(f"ℹ️ Group ID {group_id} is already authorized.")
+    except (IndexError, ValueError):
+        context.message.reply_text("❌ Usage: /add_group <group_id>")
+
+# Command to remove a group ID from the authorized list
+def remove_group(context: CallbackContext) -> None:
+    if not is_owner(context):
+        context.message.reply_text("🚫 You are not authorized to use this command.")
+        return
+
+    try:
+        group_id = int(context.args[0])  # Get the group ID from the command arguments
+        if group_id in authorized_groups:
+            authorized_groups.remove(group_id)
+            context.message.reply_text(f"✅ Group ID {group_id} has been removed.")
+        else:
+            context.message.reply_text(f"ℹ️ Group ID {group_id} is not in the authorized list.")
+    except (IndexError, ValueError):
+        context.message.reply_text("❌ Usage: /remove_group <group_id>")
+
+# Command to list all authorized channels, users, and groups
+def list_authorized(context: CallbackContext) -> None:
+    if not is_owner(context):
+        context.message.reply_text("🚫 You are not authorized to use this command.")
+        return
+
+    response = (
+        f"Authorized Channels: {', '.join(map(str, authorized_channels)) or 'None'}\n"
+        f"Authorized Users: {', '.join(map(str, authorized_users)) or 'None'}\n"
+        f"Authorized Groups: {', '.join(map(str, authorized_groups)) or 'None'}"
+    )
+    context.message.reply_text(response)
+
+def main() -> None:
+    updater = Updater(TOKEN)
+    dispatcher = updater.dispatcher
+
+    # Register command handlers
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("add_channel", add_channel))
+    dispatcher.add_handler(CommandHandler("remove_channel", remove_channel))
+    dispatcher.add_handler(CommandHandler("add_user", add_user))
+    dispatcher.add_handler(CommandHandler("remove_user", remove_user))
+    dispatcher.add_handler(CommandHandler("add_group", add_group))
+    dispatcher.add_handler(CommandHandler("remove_group", remove_group))
+    dispatcher.add_handler(CommandHandler("list_authorized", list_authorized))
+
+# Upload command handler
+@bot.on_message(filters.command(["upload"]))
+async def upload(bot: Client, m: Message):
+    editable = await m.reply_text('𝐓𝐨 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐀 𝐓𝐱𝐭 𝐅𝐢𝐥𝐞 𝐒𝐞𝐧𝐝 𝐇𝐞𝐫𝐞 📄')
+    input: Message = await bot.listen(editable.chat.id)
+    x = await input.download()
+    await input.delete(True)
+
+    path = f"./downloads/{m.chat.id}"
+
+    try:
+        with open(x, "r") as f:
+            content = f.read()
+        content = content.split("\n")
+        links = []
+        for i in content:
+            links.append(i.split("://", 1))
+        
+        # Extract the title from the file name
+        file_name = os.path.basename(x)  # Get the file name from the path
+        raw_text0 = os.path.splitext(file_name)[0]  # Remove the file extension to get the title
+        
+        os.remove(x)
+            # print(len(links)
+    except:
+           await m.reply_text("**∝ 𝐈𝐧𝐯𝐚𝐥𝐢𝐝 𝐟𝐢𝐥𝐞 𝐢𝐧𝐩𝐮𝐭.**")
+           os.remove(x)
+           return
+        
     await editable.edit(f"**𝕋ᴏᴛᴀʟ ʟɪɴᴋ𝕤 ғᴏᴜɴᴅ ᴀʀᴇ🔗🔗** **{len(links)}**\n\n**𝕊ᴇɴᴅ 𝔽ʀᴏᴍ ᴡʜᴇʀᴇ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ɪɴɪᴛɪᴀʟ ɪ𝕤** **1**")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
