@@ -45,22 +45,67 @@ bot = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN)
 
+# Sudo command to add/remove sudo users
+@bot.on_message(filters.command("sudo"))
+async def sudo_command(bot: Client, message: Message):
+    user_id = message.from_user.id
+    if user_id != OWNER_ID:
+        await message.reply_text("**🚫 You are not authorized to use this command.**")
+        return
 
+    try:
+        args = message.text.split(" ", 2)
+        if len(args) < 2:
+            await message.reply_text("**Usage:** `/sudo add <user_id>` or `/sudo remove <user_id>`")
+            return
+
+        action = args[1].lower()
+        target_user_id = int(args[2])
+
+        if action == "add":
+            if target_user_id not in SUDO_USERS:
+                SUDO_USERS.append(target_user_id)
+                await message.reply_text(f"**✅ User {target_user_id} added to sudo list.**")
+            else:
+                await message.reply_text(f"**⚠️ User {target_user_id} is already in the sudo list.**")
+        elif action == "remove":
+            if target_user_id == OWNER_ID:
+                await message.reply_text("**🚫 The owner cannot be removed from the sudo list.**")
+            elif target_user_id in SUDO_USERS:
+                SUDO_USERS.remove(target_user_id)
+                await message.reply_text(f"**✅ User {target_user_id} removed from sudo list.**")
+            else:
+                await message.reply_text(f"**⚠️ User {target_user_id} is not in the sudo list.**")
+        else:
+            await message.reply_text("**Usage:** `/sudo add <user_id>` or `/sudo remove <user_id>`")
+    except Exception as e:
+        await message.reply_text(f"**Error:** {str(e)}")
+
+# Start command handler
 @bot.on_message(filters.command(["start"]))
-async def start(bot: Client, m: Message):
-    await m.reply_text(f"<b>Hello {m.from_user.mention} 👋\n\n I Am A Bot For Download Links From Your **.TXT** File And Then Upload That File On Telegram So Basically If You Want To Use Me First Send Me /upload Command And Then Follow Few Steps..\n\nUse /stop to stop any ongoing task.</b>")
+async def start_command(bot: Client, message: Message):
+    if not is_authorized(message.from_user.id):
+        await message.reply_text("**🚫 You are not authorized to use this bot.**")
+        return
 
-
+# Stop command handler
 @bot.on_message(filters.command("stop"))
-async def restart_handler(_, m):
-    await m.reply_text("**Stopped**🚦", True)
+async def restart_handler(_, m: Message):
+    if not is_authorized(m.from_user.id):
+        await m.reply_text("**🚫 You are not authorized to use this bot.**")
+        return
+
+    await m.reply_text("**𝐒𝐭𝐨𝐩𝐩𝐞𝐝**🚦", True)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-
-
+# Upload command handler
 @bot.on_message(filters.command(["upload"]))
 async def upload(bot: Client, m: Message):
-    editable = await m.reply_text('𝕤ᴇɴᴅ ᴛxᴛ ғɪʟᴇ ⚡️')
+    if not is_authorized(m.from_user.id):
+        await m.reply_text("**🚫 You are not authorized to use this bot.**")
+        return
+ 
+   editable = await m.reply_text('𝐓𝐨 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐀 𝐓𝐱𝐭 𝐅𝐢𝐥𝐞 𝐒𝐞𝐧𝐝 𝐇𝐞𝐫𝐞 📄')
     input: Message = await bot.listen(editable.chat.id)
     x = await input.download()
     await input.delete(True)
