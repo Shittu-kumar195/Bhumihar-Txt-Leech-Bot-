@@ -84,7 +84,6 @@ async def sudo_command(bot: Client, message: Message):
 # Start command handler
 @bot.on_message(filters.command(["start"]))
 async def start_command(bot: Client, message: Message):
-        if not is_authorized(message.from_user.id):
         await message.reply_text('hello\n\nWelcome to this bot')
    
 # Stop command handler
