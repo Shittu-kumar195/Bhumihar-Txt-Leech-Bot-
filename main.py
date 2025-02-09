@@ -62,8 +62,7 @@ bot = Client(
     bot_token=BOT_TOKEN
 )
         
-
-    try:
+try:
         group_id = int(context.args[0])  # Get the group ID from the command arguments
         if group_id not in authorized_groups:
             authorized_groups.append(group_id)
