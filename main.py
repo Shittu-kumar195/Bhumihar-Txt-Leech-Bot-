@@ -85,7 +85,7 @@ async def sudo_command(bot: Client, message: Message):
 @bot.on_message(filters.command(["start"]))
 async def start_command(bot: Client, message: Message):
         await m.reply_text(f"<b>ʜᴇʟʟᴏ {m.from_user.mention}👋\n\n ɪ ᴀᴍ ᴛxᴛ ᴛᴏ ᴠɪᴅᴇᴏ ᴜᴘʟᴏᴀᴅᴇʀ ʙᴏᴛ.</b>")
-    
+        return
    
 # Stop command handler
 @bot.on_message(filters.command("stop"))
