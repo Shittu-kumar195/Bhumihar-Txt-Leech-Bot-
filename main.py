@@ -25,7 +25,20 @@ from pyrogram.errors.exceptions.bad_request_400 import StickerEmojiInvalid
 from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+# Define the owner's user ID
+OWNER_ID = 5957208798  # Replace with the actual owner's user ID
 
+# List of sudo users (initially empty or pre-populated)
+SUDO_USERS = []
+
+# Function to check if a user is authorized
+def is_authorized(user_id):
+    return user_id in SUDO_USERS
+
+# Function to check if a user is authorized
+def is_authorized(user_id: int) -> bool:
+    return user_id == OWNER_ID or user_id in SUDO_USERS
+    
 bot = Client(
     "bot",
     api_id=API_ID,
