@@ -76,9 +76,6 @@ keyboard = InlineKeyboardMarkup(
         ],
     ]
 )
-# Check if the user is the bot owner
-def is_owner(context: CallbackContext) -> bool:
-    return context.message.from_user.id == OWNER_ID
 
 # Command to add a channel ID to the authorized list
 def add_channel(context: CallbackContext) -> None:
