@@ -76,30 +76,6 @@ keyboard = InlineKeyboardMarkup(
         ],
     ]
 )
-
-# Image URLs for the random image feature
-image_urls = [
-    "https://i.postimg.cc/t428ZHY7/02.webp",
-    "https://i.postimg.cc/6QkC6yLK/03.webp",
-    "https://i.postimg.cc/fbdNhHf8/04.webp",
-    "https://i.postimg.cc/yxMGnKwB/05.webp",
-    "https://i.postimg.cc/50ddnwvD/06.webp",
-    "https://i.postimg.cc/wT7zxT6f/07.webp",
-    "https://i.postimg.cc/pVk0GfM4/08.webp",
-    "https://i.postimg.cc/1tBLrbKY/09.webp",
-]
-random_image_url = random.choice(image_urls)
-
-# Define the caption
-caption = (
-    "**𝐇𝐞𝐥𝐥𝐨 𝐃𝐞𝐚𝐫👋!**\n\n"
-    "➠ **𝐈 𝐚𝐦 𝐚 𝐓𝐞𝐱𝐭 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐫 𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐖𝐢𝐭𝐡 ♥️**\n"
-    "➠ **Can Extract Videos & PDFs From Your Text File and Upload to Telegram!**\n"
-    "➠ **For Guide Use Command /guide 📖**\n"
-    "➠ **Use /Upload Command to Download From TXT File** 📄\n"
-    "➠ **𝐌𝐚𝐝𝐞 𝐁𝐲:** @Engineers_Babu"
-)
-
 # Check if the user is the bot owner
 def is_owner(context: CallbackContext) -> bool:
     return context.message.from_user.id == OWNER_ID
