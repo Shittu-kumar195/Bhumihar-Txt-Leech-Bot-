@@ -42,6 +42,122 @@ bot = Client(
     bot_token=BOT_TOKEN
 )
 
+# 1. /adduser
+@bot.on_message(filters.command("adduser") & filters.private)
+@admin_only
+async def add_user(client, message: Message):
+    try:
+        _, user_id, expiration_date = message.text.split()
+        subscription_data = read_subscription_data()
+        subscription_data.append([user_id, expiration_date])
+        write_subscription_data(subscription_data)
+        await message.reply_text(f"User {user_id} added with expiration date {expiration_date}.")
+    except ValueError:
+        await message.reply_text("Invalid command format. Use: /adduser <user_id> <expiration_date>")
+
+
+# 2. /removeuser
+@bot.on_message(filters.command("removeuser") & filters.private)
+@admin_only
+async def remove_user(client, message: Message):
+    try:
+        _, user_id = message.text.split()
+        subscription_data = read_subscription_data()
+        subscription_data = [user for user in subscription_data if user[0] != user_id]
+        write_subscription_data(subscription_data)
+        await message.reply_text(f"User {user_id} removed.")
+    except ValueError:
+        await message.reply_text("Invalid command format. Use: /removeuser <user_id>")
+
+YOUR_ADMIN_ID = 5840594311
+
+# Helper function to check admin privilege
+def is_admin(user_id):
+    return user_id == YOUR_ADMIN_ID
+
+# Command to show all users (Admin only)
+@bot.on_message(filters.command("users") & filters.private)
+async def show_users(client, message: Message):
+    user_id = message.from_user.id
+
+    if not is_admin(user_id):
+        await message.reply_text("❌ You are not authorized to use this command.")
+        return
+
+    subscription_data = read_subscription_data()
+    
+    if subscription_data:
+        users_list = "\n".join(
+            [f"{idx + 1}. User ID: `{user[0]}`, Expiration Date: `{user[1]}`" for idx, user in enumerate(subscription_data)]
+        )
+        await message.reply_text(f"**👥 Current Subscribed Users:**\n\n{users_list}")
+    else:
+        await message.reply_text("ℹ️ No users found in the subscription data.")
+
+# 3. /myplan
+@bot.on_message(filters.command("myplan") & filters.private)
+async def my_plan(client, message: Message):
+    user_id = str(message.from_user.id)
+    subscription_data = read_subscription_data()  # Make sure this function is implemented elsewhere
+
+    # Define YOUR_ADMIN_ID somewhere in your code
+    if user_id == str(YOUR_ADMIN_ID):  # YOUR_ADMIN_ID should be an integer
+        await message.reply_text("**✨ You have permanent access!**")
+    elif any(user[0] == user_id for user in subscription_data):  # Assuming subscription_data is a list of [user_id, expiration_date]
+        expiration_date = next(user[1] for user in subscription_data if user[0] == user_id)
+        await message.reply_text(
+            f"**📅 Your Premium Plan Status**\n\n"
+            f"**🆔 User ID**: `{user_id}`\n"
+            f"**⏳ Expiration Date**: `{expiration_date}`\n"
+            f"**🔒 Status**: *Active*"
+        )
+    else:
+        await message.reply_text("**❌ You are not a premium user.**")
+
+# 4. /add_channel
+@bot.on_message(filters.command("add_channel"))
+async def add_channel(client, message: Message):
+    user_id = str(message.from_user.id)
+    subscription_data = read_subscription_data()
+
+    if not any(user[0] == user_id for user in subscription_data):
+        await message.reply_text("You are not a premium user.")
+        return
+
+    try:
+        _, channel_id = message.text.split()
+        channels = read_channels_data()
+        if channel_id not in channels:
+            channels.append(channel_id)
+            write_channels_data(channels)
+            await message.reply_text(f"Channel {channel_id} added.")
+        else:
+            await message.reply_text(f"Channel {channel_id} is already added.")
+    except ValueError:
+        await message.reply_text("Invalid command format. Use: /add_channel <channel_id>")
+
+
+# 5. /remove_channels
+@bot.on_message(filters.command("remove_channel"))
+async def remove_channel(client, message: Message):
+    user_id = str(message.from_user.id)
+    subscription_data = read_subscription_data()
+
+    if not any(user[0] == user_id for user in subscription_data):
+        await message.reply_text("You are not a premium user.")
+        return
+
+    try:
+        _, channel_id = message.text.split()
+        channels = read_channels_data()
+        if channel_id in channels:
+            channels.remove(channel_id)
+            write_channels_data(channels)
+            await message.reply_text(f"Channel {channel_id} removed.")
+        else:
+            await message.reply_text(f"Channel {channel_id} is not in the list.")
+    except ValueError:
+        await message.reply_text("Invalid command format. Use: /remove_channels <channel_id>")
 
 # Upload command handler
 @bot.on_message(filters.command(["upload"]))
