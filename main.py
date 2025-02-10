@@ -33,9 +33,9 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 # Define the owner's user ID
 OWNER_ID = 5840594311   # Replace with the actual owner's user ID
 
-# Lists to store authorized channels, users, and groups
-authorized_channels = []
+# Lists to store authorized users,channels,and groups
 authorized_users = []
+authorized_channels = []
 authorized_groups = []
 
 # Function to check if a user is authorized
