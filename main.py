@@ -184,8 +184,8 @@ def list_authorized(context: CallbackContext) -> None:
         return
 
     response = (
-        f"Authorized Channels: {', '.join(map(str, authorized_channels)) or 'None'}\n"
-        f"Authorized Users: {', '.join(map(str, authorized_users)) or 'None'}\n"
+        f"Authorized Users: {', '.join(map(str, authorized_channels)) or 'None'}\n"
+        f"Authorized Channels: {', '.join(map(str, authorized_users)) or 'None'}\n"
         f"Authorized Groups: {', '.join(map(str, authorized_groups)) or 'None'}"
     )
     context.message.reply_text(response)
