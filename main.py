@@ -44,7 +44,6 @@ bot = Client(
 
 # 1. /adduser
 @bot.on_message(filters.command("adduser") & filters.private)
-@admin_only
 async def add_user(client, message: Message):
     try:
         _, user_id, expiration_date = message.text.split()
@@ -58,7 +57,6 @@ async def add_user(client, message: Message):
 
 # 2. /removeuser
 @bot.on_message(filters.command("removeuser") & filters.private)
-@admin_only
 async def remove_user(client, message: Message):
     try:
         _, user_id = message.text.split()
