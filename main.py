@@ -26,12 +26,12 @@ from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # Environment variables for API credentials
-API_ID = os.environ.get("API_ID", "24473318")
-API_HASH = os.environ.get("API_HASH", "e7dd0576c5ac0ff8f90971d6bb04c8f5")
+API_ID = os.environ.get("API_ID", "23634056")
+API_HASH = os.environ.get("API_HASH", "f2debf49c2f57bad88086ecd17cb5df3")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 
 # Define the owner's user ID
-OWNER_ID = 5840594311   # Replace with the actual owner's user ID
+OWNER_ID = 5082207960   # Replace with the actual owner's user ID
 
 
 # Initialize the bot
@@ -67,7 +67,7 @@ async def remove_user(client, message: Message):
     except ValueError:
         await message.reply_text("Invalid command format. Use: /removeuser <user_id>")
 
-YOUR_ADMIN_ID = 5840594311
+YOUR_ADMIN_ID = 5082207960
 
 # Helper function to check admin privilege
 def is_admin(user_id):
