@@ -227,9 +227,9 @@ async def upload(bot: Client, m: Message):
     await input3.delete(True)
     highlighter  = f"️ ⁪⁬⁮⁮⁮"
     if raw_text3 == 'Robin':
-        MR = highlighter 
+        CR = highlighter 
     else:
-        MR = raw_text3
+        CR = raw_text3
 
     await editable.edit("**𝐄𝐧𝐭𝐞𝐫 𝐘𝐨𝐮𝐫 𝐏𝐖 𝐓𝐨𝐤𝐞𝐧 𝐅𝐨𝐫 𝐌𝐏𝐃 𝐔𝐑𝐋 𝐨𝐫 𝐬𝐞𝐧𝐝 '𝐮𝐧𝐤𝐧𝐨𝐰𝐧' 𝐟𝐨𝐫 𝐮𝐬𝐞 𝐝𝐞𝐟𝐚𝐮𝐥𝐭**")
     input4: Message = await bot.listen(editable.chat.id)
@@ -292,8 +292,8 @@ async def upload(bot: Client, m: Message):
 
             try:  
                 
-                cc = f'**[📽️] Vid_ID:** {str(count).zfill(3)}.** {𝗻𝗮𝗺𝗲𝟭}{MR}.mkv\n**𝔹ᴀᴛᴄʜ** » **{raw_text0}**'
-                cc1 = f'**[📁] Pdf_ID:** {str(count).zfill(3)}. {𝗻𝗮𝗺𝗲𝟭}{MR}.pdf \n**𝔹ᴀᴛᴄʜ** » **{raw_text0}**'
+                 cc = f'╭━━━━━━━━━━━╮\n🎬 VIDEO ID: {str(count).zfill(3)}.\n╰━━━━━━━━━━━╯\n\n📄 Title: {name1} {res} 🥀𝕭𝖍𝖚𝖒𝖎𝖍𝖆𝖗🦅.mkv\n\n<pre><code>🔖 Batch Name: {raw_text0}</code></pre>\n\n📥 Extracted By : {CR}'
+                cc1 = f'╭━━━━━━━━━━━╮\n📁 FILE ID: {str(count).zfill(3)}.\n╰━━━━━━━━━━━╯\n\n📄 Title: {name1} 🥀𝕭𝖍𝖚𝖒𝖎𝖍𝖆𝖗🦅.pdf \n\n<pre><code>🔖 Batch Name: {raw_text0}</code></pre>\n\n📥 Extracted By : {CR}'
                 if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
@@ -319,7 +319,7 @@ async def upload(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue
                 else:
-                    Show = f"**⥥ 🄳🄾🅆🄽🄻🄾🄰🄳🄸🄽🄶⬇️⬇️... »**\n\n**📝Name »** `{name}\n❄Quality » {raw_text2}`\n\n**🔗URL »** `{url}`"
+                    Show = f"**⥥ 🄳🄾🅆🄽🄻🄾🄰🄳🄸🄽🄶⬇️⬇️... »**\n\n**📝Name »** `{name}\n❄Quality » {raw_text2}`\n\n**🔗URL »** `Nhi Dikhaunga`"
                     prog = await m.reply_text(Show)
                     res_file = await helper.download_video(url, cmd, name)
                     filename = res_file
