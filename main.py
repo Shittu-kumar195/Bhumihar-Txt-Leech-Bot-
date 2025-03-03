@@ -291,7 +291,7 @@ async def upload(bot: Client, m: Message):
             name = f'{str(count).zfill(3)}) {name1[:60]}'
 
             if "youtu" in url:
-                ytf = f"b[height<={raw_text2}][ext=mp4]/bv[height<={raw_text2}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]"
+                ytf = f"b[heigh{raw_text2}][ext=mp4]/bv[height<={raw_text2}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]"
             else:
                 ytf = f"b[height<={raw_text2}]/bv[height<={raw_text2}]+ba/b/bv+ba"
 
@@ -301,9 +301,9 @@ async def upload(bot: Client, m: Message):
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
             try:  
-                
-                 cc = f'🎬 VIDEO ID: {str(count).zfill(3)}.\n📄 Title: {name1} {res} 🥀𝕭𝖍𝖚𝖒𝖎𝖍𝖆𝖗🦅.mkv\n\n<pre><code>🔖 Batch Name: {raw_text0}</code></pre>\n\n📥 Extracted By : {CR}'
-                cc1 = f'📁 FILE ID: {str(count).zfill(3)}.\n📄 Title: {name1} 🥀𝕭𝖍𝖚𝖒𝖎𝖍𝖆𝖗🦅.pdf \n\n<pre><code>🔖 Batch Name: {raw_text0}</code></pre>\n\n📥 Extracted By : {CR}'
+                cc = f'[📹] ᐯIᗪ_Iᗪ ⇛ {str(count).zfill(3)}.\n𝐕𝐢𝐝𝐞𝐨 𝐃𝐞𝐬𝐜𝐫𝐢𝐩𝐭𝐢𝐨𝐧 ⇛ {name1} {res} 𝕭𝖍𝖚𝖒𝖎𝖍𝖆𝖗.mkv\n\n<pre><code>🔖 Batch Name: {raw_text0}</code></pre>**\n\n📥 𝐄𝐱𝐭𝐫𝐚𝐜𝐭𝐞𝐝 𝐁𝐲: {CR}🗿\n\n'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                cc1 = f'[📁]  ᖴIᒪE_Iᗪ ⇛ {str(count).zfill(3)}.\n𝐅𝐢𝐥𝐞 𝐃𝐞𝐬𝐜𝐫𝐢𝐩𝐭𝐢𝐨𝐧 ⇛ {name1} 𝕭𝖍𝖚𝖒𝖎𝖍𝖆𝖗.pdf\n\n<pre><code>🔖 Batch Name: {raw_text0}</code></pre>\n\n📥 𝐄𝐱𝐭𝐫𝐚𝐜𝐭𝐞𝐝 𝐁𝐲: {CR}🗿\n\n'
+            
                 if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
