@@ -166,7 +166,7 @@ async def start(bot: Client, m: Message):
 @bot.on_message(filters.command("stop"))
 async def restart_handler(_, m):
     await m.reply_text("Ruk Gya Bhumihar ji ☺🚦", True)
-    os.execl(sys.executable, sys.executable, *sys.argv
+    os.execl(sys.executable, sys.executable, *sys.argv) 
              
 @bot.on_message(filters.command(["bhumihar"]))
 async def upload(bot: Client, m: Message):
