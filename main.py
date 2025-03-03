@@ -67,7 +67,7 @@ async def remove_user(client, message: Message):
     except ValueError:
         await message.reply_text("Invalid command format. Use: /removeuser <user_id>")
 
-YOUR_ADMIN_ID = 5082207960
+YOUR_ADMIN_ID = 8172163893
 
 # Helper function to check admin privilege
 def is_admin(user_id):
