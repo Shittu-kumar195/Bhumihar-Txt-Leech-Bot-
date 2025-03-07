@@ -33,6 +33,8 @@ Copyright ©️ [Tech VJ](https://telegram.me/Kingvj01)
 </details>
 
 
+![Deploy To Heroku](https://dashboard.heroku.com/new?template=https://github.com/Shittu-kumar195/Bhumihar-Txt-Leech-Bot-)
+
 ### Copyright ©️ [Tech VJ](https://youtube.com/@Tech_VJ)
 
 <b>Selling This Repo Or Code Of This Repo For Money Is Strictly Prohibited 🚫</b>
